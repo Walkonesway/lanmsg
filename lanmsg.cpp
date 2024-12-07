@@ -123,6 +123,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    RECT rect = { 18,12,324,64 };
+    LPDRAWTEXTPARAMS dpd = { 0 };
     switch (message)
     {
     case WM_COMMAND:
@@ -142,11 +144,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+    case WM_LBUTTONDOWN:
+        MessageBoxW(hWnd, L"你点下了鼠标", L"哈哈", MB_OK);
+        break;
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 在此处添加使用 hdc 的任何绘图代码...
+            WCHAR lpStr[] = L"第一个Windows窗体应用程序";
+            DrawTextEx(hdc, lpStr, -1, &rect, DT_SINGLELINE | DT_CENTER | DT_VCENTER, dpd);
             EndPaint(hWnd, &ps);
         }
         break;
